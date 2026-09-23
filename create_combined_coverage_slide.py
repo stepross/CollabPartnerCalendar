@@ -167,6 +167,12 @@ def add_team_column(slide, source_slide, x, leader_title):
     leader.top = Inches(1.48)
     leader.width = column_width - Inches(0.44)
     leader.height = Inches(0.90)
+    for child in leader.shapes:
+        if not child.has_text_frame:
+            continue
+        for paragraph_index, paragraph in enumerate(child.text_frame.paragraphs):
+            for run in paragraph.runs:
+                run.font.size = Pt(14 if paragraph_index == 0 else 9.5)
 
     reports = direct_report_data(source_slide)
     rows_top = Inches(2.48)
